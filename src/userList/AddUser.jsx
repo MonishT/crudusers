@@ -48,13 +48,13 @@ export default function AddUser({
           data[element.name] = element.value;
         }
     });
-    console.log(data);
-    if (currUser === undefined) {
+    //console.log("Event :"+event.target.onClick);
+    console.log(currUser);
+    if (userName === undefined) {
       // passing data from child to parent with help of callback function
       addUser(data);
-      console.log(data);
     } else {
-      editUser(currUser.userName, data);
+      editUser(userName, data);
     }
     handleClose();
   }
@@ -83,13 +83,14 @@ export default function AddUser({
 
   return (
     <div className="userList" >
+      {console.log("current user :"+userName)}
       <Dialog
         open={open}
         onClose={handleClose}
         maxWidth={'sm'}
         fullWidth={true}
       >
-        <DialogTitle>{currUser !== null ? 'Edit user' : 'Add user'}</DialogTitle>
+        <DialogTitle>{userName.length < 1 ? 'Add user' : 'Edit user'}</DialogTitle>
         <form onSubmit={handleSubmit} >
           <DialogContent>
             <TextField
@@ -169,7 +170,7 @@ export default function AddUser({
           </DialogContent>
           <DialogActions>
             <Button type='button' variant='contained' color="error" onClick={handleClose}>Cancel</Button>
-            <Button type="submit" variant='contained' color='primary'>{currUser!== null ? 'Edit' : 'Add'}</Button>
+            <Button type="submit" variant='contained' color='primary'>{userName.length < 1 ? 'Add' : 'Edit'}</Button>
           </DialogActions>
         </form>
       </Dialog>

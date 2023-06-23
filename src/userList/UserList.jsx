@@ -89,7 +89,7 @@ const UserList = () => {
         }}
         onClick={handleClickOpen}
       >
-        <AddIcon color="secondary" />
+        <AddIcon color="secondary"/>
       </Fab>
       <div
         style={{
