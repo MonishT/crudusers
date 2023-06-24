@@ -43,14 +43,15 @@ export default function AddUser({
     var data = {};
 
     Array.from(event.target.elements).forEach((element) => {
-      //console.log("Element :"+element.type);
-      if ((element.type === 'text') || element.type === 'number') {
+      if (element.nodeName === 'INPUT') {
+        if ((element.type === 'radio' && element.checked) || element.type !== 'radio') {
           data[element.name] = element.value;
         }
+      }
     });
     //console.log("Event :"+event.target.onClick);
     console.log(currUser);
-    if (userName === undefined) {
+    if (currUser === undefined) {
       // passing data from child to parent with help of callback function
       addUser(data);
     } else {
@@ -83,14 +84,13 @@ export default function AddUser({
 
   return (
     <div className="userList" >
-      {console.log("current user :"+userName)}
       <Dialog
         open={open}
         onClose={handleClose}
         maxWidth={'sm'}
         fullWidth={true}
       >
-        <DialogTitle>{userName.length < 1 ? 'Add user' : 'Edit user'}</DialogTitle>
+        <DialogTitle>{(userName.length>1 || age>1 || gender.length>1 || place.length>1) ? 'Edit user' : 'Add user'}</DialogTitle>
         <form onSubmit={handleSubmit} >
           <DialogContent>
             <TextField
@@ -170,7 +170,8 @@ export default function AddUser({
           </DialogContent>
           <DialogActions>
             <Button type='button' variant='contained' color="error" onClick={handleClose}>Cancel</Button>
-            <Button type="submit" variant='contained' color='primary'>{userName.length < 1 ? 'Add' : 'Edit'}</Button>
+            <Button type="submit" variant='contained' color='primary'>{(userName.length>1 || age>1 || gender.length>1 || place.length>1) 
+            ? 'Edit' : 'Add'}</Button>
           </DialogActions>
         </form>
       </Dialog>
