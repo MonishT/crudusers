@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 export default function AddUser({
   open = false,
+  title='',
   handleClose = () => undefined,
   addUser,
   currUser,
@@ -50,12 +51,12 @@ export default function AddUser({
       }
     });
     //console.log("Event :"+event.target.onClick);
-    console.log(currUser);
-    if (currUser === undefined) {
+    //console.log(title);
+    if (title === 'Add') {
       // passing data from child to parent with help of callback function
       addUser(data);
     } else {
-      editUser(userName, data);
+      editUser(data.userName, data);
     }
     handleClose();
   }
@@ -90,7 +91,8 @@ export default function AddUser({
         maxWidth={'sm'}
         fullWidth={true}
       >
-        <DialogTitle>{(userName.length>1 || age>1 || gender.length>1 || place.length>1) ? 'Edit user' : 'Add user'}</DialogTitle>
+        <DialogTitle>{(title !== null) ? title+' User' : ''}</DialogTitle>
+        {console.log("userName: "+title)}
         <form onSubmit={handleSubmit} >
           <DialogContent>
             <TextField
@@ -107,8 +109,7 @@ export default function AddUser({
               size='small'
               value={userName}
               onChange={handleuserName}
-              // defaultValue={currUser?.title || ''}
-              defaultValue={currUser !== undefined ? currUser.name : ''}
+              defaultValue={currUser !== undefined ? currUser.userName : ''}
               disabled={currUser !== undefined}
             />
             <TextField
@@ -170,8 +171,7 @@ export default function AddUser({
           </DialogContent>
           <DialogActions>
             <Button type='button' variant='contained' color="error" onClick={handleClose}>Cancel</Button>
-            <Button type="submit" variant='contained' color='primary'>{(userName.length>1 || age>1 || gender.length>1 || place.length>1) 
-            ? 'Edit' : 'Add'}</Button>
+            <Button type="submit" variant='contained' color='primary'>{title != null? title: ''}</Button>
           </DialogActions>
         </form>
       </Dialog>

@@ -11,10 +11,12 @@ import AddUser from './AddUser';
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [title,setTitle] = useState('');
   const [currUser, setCurrUser] = React.useState(undefined);
 
   const handleClickOpen = () => {
     setOpen(true);
+    setTitle('Add');
   };
 
   const handleClose = () => {
@@ -51,6 +53,7 @@ const UserList = () => {
     //console.log("User : "+user);
     setCurrUser(user);
     setOpen(true);
+    setTitle('Edit');
   }
 
   const editUser = (Name, userObj) => {
@@ -113,6 +116,7 @@ const UserList = () => {
       {open && <AddUser
         // passing of data from parent to child
         open={open}
+        title={title}
         handleClose={handleClose}
         addUser={addUser}
         currUser={currUser}
